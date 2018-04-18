@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_listaanuncios"
+            android:icon="@drawable/ic_action_nameanuncios"
+            android:title="Anuncios" />
+        <item
+            android:id="@+id/nav_anuncios"
+            android:icon="@drawable/ic_action_namepanuncios"
+            android:title="Publicar Anuncios" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_action_namelocation"
+            android:title="Ubicar anuncios" />
+
+    </group>
+
+    <item android:title="Mis acciones">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_action_nameperfil"
+                android:title="Perfil" />
+            <item
+                android:id="@+id/nav_share1"
+                android:icon="@drawable/ic_action_namevanuncios"
+                android:title="Ver mis anuncios" />
+            <item
+                android:id="@+id/nav_salir"
+                android:icon="@drawable/ic_action_salir"
+                android:title="Cerrar Sesión" />
+        </menu>
+    </item>
+
+</menu>
