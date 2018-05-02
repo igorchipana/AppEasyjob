@@ -64,11 +64,11 @@ public class MainActivity2 extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+
     @Override
     public void onBackPressed() {
 
     }
-
 
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -81,6 +81,12 @@ public class MainActivity2 extends AppCompatActivity
         args.putString("idpersona", vPERSONAID);
         vistafragment.setArguments(args);
 
+
+        PerfilUss vistafragment1= new PerfilUss();
+        Bundle args1 = new Bundle();
+        args1.putString("idpersona", vPERSONAID);
+        vistafragment1.setArguments(args1);
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -89,24 +95,26 @@ public class MainActivity2 extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.contenedor,new ExampleComboBox()).commit();
         } else if (id == R.id.nav_anuncios) {
             FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
-            fragTransaction.replace(R.id.contenedor,vistafragment,null);
+            fragTransaction.replace(R.id.contenedor, vistafragment, null);
+            fragTransaction.commit();
+        }
+        else if (id == R.id.nav_ubicaranuncios) {
+
+            //fragmentManager.beginTransaction().replace(R.id.contenedor,new Anuncios_Maps()).commit();
+
+            Intent intentfff = new Intent(this, MapsAnuncios.class);
+             startActivityForResult(intentfff, 12345);
+          //  Intent intentfff = new Intent(this, Anuncios_Maps.class);
+            //startActivityForResult(intentfff, 12345);
+
+
+
+        }else if (id == R.id.nav_perfil) {
+            FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
+            fragTransaction.replace(R.id.contenedor,vistafragment1,null);
             fragTransaction.commit();
 
-
-
-         // fragmentManager.beginTransaction().replace(R.id.contenedor,new FregistroAnuncio()).commit();
-           // Intent i = new Intent();
-        //    Bundle args = new Bundle();
-         //   args.putString("PERSONAID",vPERSONAID );
-          //  Log.d("dsdddd",vPERSONAID);
-           // FregistroAnuncio.setArgumen(args)
-            //startActivity(i);
-
-
-
-        } else if (id == R.id.nav_slideshow) {
-
-        }  else if (id == R.id.nav_share) {
+        }  else if (id == R.id.nav_share1) {
 
         } else if (id == R.id.nav_salir) {
 
@@ -136,4 +144,11 @@ public class MainActivity2 extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+
 }

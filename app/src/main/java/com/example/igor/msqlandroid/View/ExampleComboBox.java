@@ -114,12 +114,9 @@ public class ExampleComboBox extends Fragment {
         jsonObjectRequest =new JsonObjectRequest(Request.Method.GET, url,null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         Anuncios oAnuncios=null;
-
                         JSONArray json=response.optJSONArray("RESULTADO");
                         Log.i("tamaño array:",String.valueOf(json.length()));
-
                         // if(jsonObject.getInt("success")==1){
                         txtResultado.setText("");
                         listaAnuncios.clear();
@@ -148,16 +145,15 @@ public class ExampleComboBox extends Fragment {
                                         oAnuncios.setCalificacion(jsonObject.optString("calificacion"));
                                         oAnuncios.setIdAnuncio(jsonObject.optInt("idAnuncio"));
                                         oAnuncios.setIdPersona(jsonObject.optInt("idPersona"));
-
-
                                         listaAnuncios.add(oAnuncios);
                                     }
-                                    Log.i("tamaño array:",String.valueOf(listaAnuncios.size()));
+                                    Log.i("prueba:",String.valueOf(listaAnuncios.get(0).getIdAnuncio()));
 
                                     listaAnunciosFinal= new ArrayList<>();
                                     listaAnunciosFinal.add("Categorias:");
 
                                     for(int i=0;i<listaAnuncios.size();i++){
+                                        Log.i("recorre?:",String.valueOf(listaAnuncios.get(0).getApellidos()));
                                         AnunciosAdapter adapter= new AnunciosAdapter(listaAnuncios);
                                         recyclerAnuncios.setAdapter(adapter);
 

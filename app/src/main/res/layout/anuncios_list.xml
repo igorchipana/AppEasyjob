@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:orientation="horizontal">
 
         <TextView
@@ -15,7 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="2"
-            android:text="Publicador: "
+            android:text="Publicador:"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -29,9 +30,10 @@
 
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:orientation="horizontal">
 
         <TextView
@@ -40,6 +42,7 @@
             android:layout_marginLeft="5dp"
             android:layout_weight="2"
             android:text="Título: "
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -48,15 +51,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:textSize="15sp"
-            android:layout_weight=".8"/>
+            android:layout_weight=".8"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:orientation="horizontal">
 
         <TextView
@@ -65,6 +68,7 @@
             android:layout_marginLeft="5dp"
             android:layout_weight="2"
             android:text="Descripción: "
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -73,35 +77,65 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:textSize="12sp"
-            android:layout_weight=".8"/>
+            android:layout_weight=".8"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/textView6"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_weight="2"
-            android:text="Cotáctalo: "
+            android:text="Correo:"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txttelcorreo"
-            android:layout_width="match_parent"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
 
-            android:textSize="12sp"
-            android:layout_weight=".8"/>
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/textView6"
+            android:layout_weight=".8"
+            android:textSize="12sp" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/txttelcorreo"
+            android:layout_weight="2"
+            android:text="Teléfono:"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/txttelcorreo1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/txttelcorreo"
+            android:layout_toEndOf="@+id/textView7"
+            android:layout_weight=".8"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="79dp"
         android:layout_height="wrap_content"
@@ -147,13 +181,13 @@
             android:layout_height="2dp"
             android:visibility="invisible"
 
+
             />
         <TextView
             android:id="@+id/idanuncio"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:visibility="invisible"
-
             />
     </LinearLayout>
 

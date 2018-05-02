@@ -13,7 +13,7 @@
             android:icon="@drawable/ic_action_namepanuncios"
             android:title="Publicar Anuncios" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_ubicaranuncios"
             android:icon="@drawable/ic_action_namelocation"
             android:title="Ubicar anuncios" />
 
@@ -22,7 +22,7 @@
     <item android:title="Mis acciones">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_perfil"
                 android:icon="@drawable/ic_action_nameperfil"
                 android:title="Perfil" />
             <item

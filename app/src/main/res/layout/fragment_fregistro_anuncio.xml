@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rrr"
     tools:context="com.example.igor.msqlandroid.FregistroAnuncio">
 
     <!-- TODO: Update blank fragment layout -->
@@ -91,7 +92,7 @@
         <EditText
             android:id="@+id/edtdescripcion"
             android:layout_width="match_parent"
-            android:layout_height="113dp"
+            android:layout_height="92dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
@@ -99,15 +100,54 @@
             android:hint="Descripción"
             android:inputType="textPersonName" />
 
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="282dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="5dp"
+            android:text="¿Desea registrar su ubicación actual?" />
+
+
+        <LinearLayout
+            android:layout_width="227dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="181dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="2"
+                android:text="Seleccione otra ubicación: "
+                android:textColor="#000"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/llamar"
+                android:layout_width="36dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="3dp"
+                android:drawableBottom="@drawable/ic_action_namelocation1"
+                android:layout_weight="2"
+                android:background="@drawable/btncomentarios" />
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/button2"
             android:layout_width="159dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/botonstyloovalado"
             android:text="Agregar"
             android:textColor="@color/white" />
+
 
 
     </LinearLayout>

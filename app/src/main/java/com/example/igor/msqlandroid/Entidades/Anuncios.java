@@ -19,6 +19,33 @@ public class Anuncios {
     String Apellidos;
     String correo;
     String telefono;
+    String categoria;
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    String direccion;
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    String comentario;
+
+    public String getCategoria() {return categoria;}
+
+    public void setCategoria(String categoria) {this.categoria = categoria;
+    }
+
 
 
     public String getNombres() {
