@@ -48,6 +48,20 @@
                 android:layout_toEndOf="@+id/ivContactItem2"
                 android:textColor="@color/white" />
 
+            <Button
+                android:id="@+id/edtperfil"
+                android:layout_width="43dp"
+                android:layout_height="37dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/ivContactItem2"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:background="@drawable/btncomentarios"
+                android:drawableBottom="@drawable/ic_action_nameedit"
+                android:textSize="10sp"
+                android:textStyle="bold|italic"
+                android:tooltipText="Prueba" />
+
         </RelativeLayout>
 
 
@@ -76,12 +90,12 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="19dp"
                 android:layout_toEndOf="@+id/ivContactItem1"
-                android:text="Nombres:"
+                android:text="Usuario:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#212121" />
 
             <TextView
-                android:id="@+id/utxtnombres"
+                android:id="@+id/utxuss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvNumber1"
@@ -93,17 +107,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#727272" />
 
-            <ToggleButton
-                android:id="@+id/chkState"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_action_namevanuncios"
-                android:checked="true"
-                android:padding="6dp"
-                android:textOff=""
-                android:textOn="" />
+
 
         </RelativeLayout>
         <TextView
@@ -135,12 +139,12 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_toEndOf="@id/ivContactItem1"
                 android:layout_toRightOf="@id/ivContactItem1"
-                android:text="Apellidos:"
+                android:text="Password:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#212121" />
 
             <TextView
-                android:id="@+id/utxtapellidos"
+                android:id="@+id/utxtpass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvNumber1"
@@ -152,20 +156,6 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#727272" />
 
-            <ToggleButton
-                android:id="@+id/chkState1"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:background="@drawable/ic_action_namevanuncios"
-                android:checked="true"
-                android:padding="6dp"
-                android:textOff=""
-                android:textOn="" />
 
         </RelativeLayout>
 
@@ -217,20 +207,6 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#727272" />
 
-            <ToggleButton
-                android:id="@+id/chkState2"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:background="@drawable/ic_action_namevanuncios"
-                android:checked="true"
-                android:padding="6dp"
-                android:textOff=""
-                android:textOn="" />
 
         </RelativeLayout>
         <TextView
@@ -280,20 +256,6 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#727272" />
 
-            <ToggleButton
-                android:id="@+id/chkState3"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:background="@drawable/ic_action_namevanuncios"
-                android:checked="true"
-                android:padding="6dp"
-                android:textOff=""
-                android:textOn="" />
 
         </RelativeLayout>
         <TextView

@@ -7,35 +7,136 @@
 
 
     <LinearLayout
-        android:layout_width="290dp"
-        android:layout_height="116dp"
+        android:layout_width="354dp"
+        android:layout_height="488dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="135dp">
+        tools:layout_editor_absoluteX="5dp"
+        tools:layout_editor_absoluteY="11dp">
 
+
+        <TextView
+            android:layout_width="144dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:text="Editar datos perfil"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="Nombre:" />
 
         <EditText
             android:id="@+id/edtvalornom"
-            android:layout_width="match_parent"
+            android:layout_width="306dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="2dp"
             android:ems="10"
+            android:hint="Nombres"
             android:inputType="text" />
 
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="Apellidos:" />
+
+        <EditText
+            android:id="@+id/edtapellidouss"
+            android:layout_width="305dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:ems="10"
+            android:hint="Apellidos"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="Telefono:" />
+
+        <EditText
+            android:id="@+id/edtteluss"
+            android:layout_width="306dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:ems="10"
+            android:hint="Telefono"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="Correo:" />
+
+        <EditText
+            android:id="@+id/edtcorreouss"
+            android:layout_width="308dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:ems="10"
+            android:hint="Correo"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="Usuario:" />
+
+        <EditText
+            android:id="@+id/edtuss"
+            android:layout_width="309dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:ems="10"
+            android:hint="Usuario"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="Password" />
+
+        <EditText
+            android:id="@+id/edtpassUss"
+            android:layout_width="308dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPersonName" />
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="307dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="3dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnacep"
-                android:layout_width="171dp"
+                android:layout_width="99dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="2"
@@ -47,7 +148,7 @@
 
             <Button
                 android:id="@+id/btncancel"
-                android:layout_width="171dp"
+                android:layout_width="99dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="2"

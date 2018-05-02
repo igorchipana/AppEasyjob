@@ -42,21 +42,23 @@ public class PerfilUss extends Fragment {
     String valorid;
     JsonObjectRequest jsonObjectRequest;
     ArrayList<Persona> listaUsuarios;
-    TextView unombres,uapellidos,ucorreo,utelefono,cargardatos1;
-    EditText nombre;
+    TextView uUss,uPass,ucorreo,utelefono,cargardatos1;
+    EditText nombre,apellidos,telefono,correo,usuario,pass;
     ToggleButton acccion;
-    Button cancelar,acpetar;
+    Button cancelar,acpetar,edit;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vista= inflater.inflate(R.layout.fragment_perfil_uss, container, false);
-        unombres=(TextView)vista.findViewById(R.id.utxtnombres);
-        uapellidos=(TextView)vista.findViewById(R.id.utxtapellidos);
+        uUss=(TextView)vista.findViewById(R.id.utxuss);
+        uPass=(TextView)vista.findViewById(R.id.utxtpass);
         ucorreo=(TextView)vista.findViewById(R.id.utxcorreo);
         utelefono=(TextView)vista.findViewById(R.id.utxttelefono);
         cargardatos1=(TextView)vista.findViewById(R.id.cargardatos);
-        acccion=(ToggleButton)vista.findViewById(R.id.chkState);
+
+
+        edit=(Button)vista.findViewById(R.id.edtperfil);
 
         if(getArguments()!=null){
             valorid=getArguments().getString("idpersona");
@@ -66,7 +68,7 @@ public class PerfilUss extends Fragment {
         }
         listaPerfilUss();
 
-        acccion.setOnClickListener(new View.OnClickListener() {
+        edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openDialogoedit(getContext());
@@ -90,7 +92,20 @@ public class PerfilUss extends Fragment {
         acpetar = (Button) dialog.findViewById(R.id.btnacep);
         cancelar = (Button) dialog.findViewById(R.id.btncancel);
         nombre=(EditText) dialog.findViewById(R.id.edtvalornom);
+
+        apellidos=(EditText)dialog.findViewById(R.id.edtapellidouss);
+        pass=(EditText)dialog.findViewById(R.id.edtpassUss);
+        telefono=(EditText)dialog.findViewById(R.id.edtteluss);
+        correo=(EditText)dialog.findViewById(R.id.edtcorreouss);
+        usuario=(EditText)dialog.findViewById(R.id.edtuss);
+
         nombre.setText(listaUsuarios.get(i).getNombres().toString());
+        apellidos.setText(listaUsuarios.get(i).getApellidos().toString());
+        pass.setText(listaUsuarios.get(i).getPassword().toString());
+        telefono.setText(listaUsuarios.get(i).getTelefono().toString());
+        correo.setText(listaUsuarios.get(i).getCorreo().toString());
+        usuario.setText(listaUsuarios.get(i).getUsuario().toString());
+
         acpetar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,8 +156,8 @@ public class PerfilUss extends Fragment {
                             oPersona.setPassword(jsonObject.optString("pass"));
                             listaUsuarios = new ArrayList<>();
                             listaUsuarios.add(oPersona);
-                            unombres.setText(listaUsuarios.get(i).getNombres().toString());
-                            uapellidos.setText(listaUsuarios.get(i).getApellidos().toString());
+                            uUss.setText(listaUsuarios.get(i).getUsuario().toString());
+                            uPass.setText(listaUsuarios.get(i).getPassword().toString());
                             ucorreo.setText(listaUsuarios.get(i).getCorreo().toString());
                             utelefono.setText(listaUsuarios.get(i).getTelefono().toString());
                             cargardatos1.setText(listaUsuarios.get(i).getNombres().toString()+" "+listaUsuarios.get(i).getApellidos());
