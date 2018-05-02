@@ -125,10 +125,6 @@ public class PerfilUss extends Fragment {
     }
 
 
-
-
-
-
     private void listaPerfilUss() {
         String ip = getContext().getString(R.string.ip);
        String urlServices2 = ip + "/dbremota/Ws_listUsuarios.php?personaid="+ valorid.toString();
