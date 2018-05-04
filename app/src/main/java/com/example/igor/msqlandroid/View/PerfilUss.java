@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -46,19 +48,21 @@ public class PerfilUss extends Fragment {
     EditText nombre,apellidos,telefono,correo,usuario,pass;
     ToggleButton acccion;
     Button cancelar,acpetar,edit;
+    ImageView prueba;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vista= inflater.inflate(R.layout.fragment_perfil_uss, container, false);
-        uUss=(TextView)vista.findViewById(R.id.utxuss);
-        uPass=(TextView)vista.findViewById(R.id.utxtpass);
+        View vista= inflater.inflate(R.layout.pruebauss, container, false);
+      //  uUss=(TextView)vista.findViewById(R.id.utxuss);
+      //  uPass=(TextView)vista.findViewById(R.id.utxtpass);
         ucorreo=(TextView)vista.findViewById(R.id.utxcorreo);
         utelefono=(TextView)vista.findViewById(R.id.utxttelefono);
         cargardatos1=(TextView)vista.findViewById(R.id.cargardatos);
+       prueba=(ImageView)vista.findViewById(R.id.imgedit);
 
 
-        edit=(Button)vista.findViewById(R.id.edtperfil);
+     //   edit=(Button)vista.findViewById(R.id.edtperfil);
 
         if(getArguments()!=null){
             valorid=getArguments().getString("idpersona");
@@ -68,14 +72,19 @@ public class PerfilUss extends Fragment {
         }
         listaPerfilUss();
 
-        edit.setOnClickListener(new View.OnClickListener() {
+      /*  edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialogoedit(getContext());
+            }
+        });*/
+
+        prueba.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openDialogoedit(getContext());
             }
         });
-
-
 
 
 
@@ -152,8 +161,8 @@ public class PerfilUss extends Fragment {
                             oPersona.setPassword(jsonObject.optString("pass"));
                             listaUsuarios = new ArrayList<>();
                             listaUsuarios.add(oPersona);
-                            uUss.setText(listaUsuarios.get(i).getUsuario().toString());
-                            uPass.setText(listaUsuarios.get(i).getPassword().toString());
+                           // uUss.setText(listaUsuarios.get(i).getUsuario().toString());
+                          //  uPass.setText(listaUsuarios.get(i).getPassword().toString());
                             ucorreo.setText(listaUsuarios.get(i).getCorreo().toString());
                             utelefono.setText(listaUsuarios.get(i).getTelefono().toString());
                             cargardatos1.setText(listaUsuarios.get(i).getNombres().toString()+" "+listaUsuarios.get(i).getApellidos());

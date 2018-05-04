@@ -232,7 +232,7 @@
                 android:src="@drawable/ic_action_nameemail" />
 
             <TextView
-                android:id="@+id/tvNumber4"
+                android:id="@+id/cargardatos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -247,7 +247,7 @@
                 android:id="@+id/utxcorreo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvNumber4"
+                android:layout_below="@id/cargardatos"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="8dp"

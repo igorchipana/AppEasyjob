@@ -57,19 +57,12 @@ public class MapsActivity extends android.support.v4.app.FragmentActivity {
     private GoogleMap mMap;
     private TextView mTapTextView;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         enviarD = (Button) findViewById(R.id.enviardatos);
         final Context context = this;
-
-       /* FregistroAnuncio vistafragment= new FregistroAnuncio();
-        Bundle args = new Bundle();
-        args.putString("dato",dato);
-        vistafragment.setArguments(args);*/
 
         enviarD.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,25 +76,8 @@ public class MapsActivity extends android.support.v4.app.FragmentActivity {
                 setResult(Activity.RESULT_OK, intent);
                 finish();
                 Log.i("Direccion:1:", "aaaaaaaaaaaaaaaaaaa");
-              /*  FregistroAnuncio fragment = new FregistroAnuncio();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.map, fragment);
-                fragmentTransaction.commit();*/
-
-              //onBackPressed();
-               /* FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                //agrega el Fragment en el contenedor, en este caso el FrameLayout con id `FrameLayout`.
-                ft.add(R.id.contenedor, new FregistroAnuncio());
-                ft.commit();*/
-
-                // FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
-                // fragTransaction.replace(R.id.contenedor, vistafragment, null);
-                //fragTransaction.commit();
-
             }
         });
-        //comprobacionesMapa();
 
 
 

@@ -36,7 +36,7 @@ public class ComentariosAdapter extends RecyclerView.Adapter<ComentariosAdapter.
 
     @Override
     public void onBindViewHolder(ComentariosAdapter.ComentariosHolder holder, int position) {
-        holder.tnombre.setText(listanuncio.get(position).getNombres().toString()+"   "+listanuncio.get(position).getApellidos().toString());
+        holder.tnombre.setText(listanuncio.get(position).getNombres().toString()+" "+listanuncio.get(position).getApellidos().toString());
         holder.tcomentario.setText(listanuncio.get(position).getComentario().toString());
         holder.tfecha.setText(listanuncio.get(position).getFecha().toString());
     }
