@@ -2,7 +2,9 @@ package com.example.igor.msqlandroid.View;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -49,6 +51,7 @@ public class PerfilUss extends Fragment {
     ToggleButton acccion;
     Button cancelar,acpetar,edit;
     ImageView prueba;
+    ProgressDialog progreso;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,6 +96,7 @@ public class PerfilUss extends Fragment {
     }
 
     public void openDialogoedit(Context context) {
+
         int i=0;
         final Dialog dialog = new Dialog(context);
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -118,6 +122,30 @@ public class PerfilUss extends Fragment {
         acpetar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progreso=new ProgressDialog(getContext());
+                progreso.setMessage("Cargando...");
+                progreso.show();
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(view.getContext());
+                builder.setMessage("¿Está seguro que quiere realizar este cambio?");
+                builder.setTitle("Mensaje de confirmación");
+                builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                            EditUss();
+                            dialog.cancel();
+                            listaPerfilUss();
+
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        progreso.hide();
+                        dialogInterface.cancel();
+                    }
+                });
+                android.support.v7.app.AlertDialog dialog = builder.create();
+                dialog.show();
 
             }
         });
@@ -187,4 +215,55 @@ public class PerfilUss extends Fragment {
         requestQueue2.add(jsonObjectRequest);
 
     }
+
+
+    private void EditUss () {
+        String ip=getString(R.string.ip);
+        String urlService2=ip+"/dbremota/WsEditUss.php?nombres="+nombre.getText().toString()+
+                "&apellidos="+apellidos.getText().toString()+
+                "&telefono="+telefono.getText().toString()+
+                "&correo="+correo.getText().toString()+
+                "&uss="+usuario.getText().toString()+
+                "&pass="+pass.getText().toString()+
+                "&personaid="+valorid.toString();
+        urlService2=urlService2.replace(" ","%20");
+        // Log.i("Latitud1::",valorLat);
+
+        RequestQueue requestQueue3=Volley.newRequestQueue(getContext());
+        jsonObjectRequest =new JsonObjectRequest(Request.Method.GET, urlService2,null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Anuncios oAnuncios=null;
+
+                try{
+                    JSONArray json=response.optJSONArray("resultado");
+                    JSONObject jsonObjectTest = null;
+                    jsonObjectTest = json.getJSONObject(0);
+                    if (jsonObjectTest.optString("valor").trim().equals("1")){
+                        StyleableToast.makeText(getContext(),"Se modificaron los datos",R.style.exito_toast).show();
+                        progreso.hide();
+                        listaPerfilUss();
+                    }else{
+                        StyleableToast.makeText(getContext(),"Error al modificar",R.style.exampletoast).show();
+                    }
+
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                    StyleableToast.makeText(getContext(),"Error del json: "+e,R.style.exampletoast).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                StyleableToast.makeText(getContext(),"No se pudo conectar al JSON : "+error,R.style.exampletoast).show();
+            }
+        });
+        int socketTimeout = 30000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        jsonObjectRequest.setRetryPolicy(policy);
+        requestQueue3.add(jsonObjectRequest);
+
+    }
+
 }
