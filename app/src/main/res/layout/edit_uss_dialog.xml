@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="354dp"
-        android:layout_height="488dp"
+        android:layout_height="470dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="5dp"
         tools:layout_editor_absoluteY="11dp">
@@ -18,17 +18,17 @@
             android:layout_width="144dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:text="Editar datos perfil"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
         <TextView
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
-            android:textColor="@color/headings"
-            android:text="Nombres:" />
+            android:text="Nombres:"
+            android:textColor="@color/headings" />
 
         <EditText
             android:id="@+id/edtvalornom"
@@ -37,16 +37,16 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="2dp"
-            android:ems="5"
             android:hint="Nombres"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textSize="14dp" />
 
         <TextView
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
-            android:textColor="@color/headings"
-            android:text="Apellidos:" />
+            android:text="Apellidos:"
+            android:textColor="@color/headings" />
 
         <EditText
             android:id="@+id/edtapellidouss"
@@ -55,16 +55,16 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="2dp"
-            android:ems="10"
             android:hint="Apellidos"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textSize="14dp" />
 
         <TextView
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
-            android:textColor="@color/headings"
-            android:text="Telefono:" />
+            android:text="Telefono:"
+            android:textColor="@color/headings" />
 
         <EditText
             android:id="@+id/edtteluss"
@@ -73,16 +73,16 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="2dp"
-            android:ems="10"
             android:hint="Telefono"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textSize="14dp" />
 
         <TextView
             android:layout_width="65dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/headings"
             android:layout_marginLeft="12dp"
-            android:text="Correo:" />
+            android:text="Correo:"
+            android:textColor="@color/headings" />
 
         <EditText
             android:id="@+id/edtcorreouss"
@@ -91,16 +91,16 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="2dp"
-            android:ems="10"
             android:hint="Correo"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textSize="14dp" />
 
         <TextView
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
-            android:textColor="@color/headings"
-            android:text="Usuario:" />
+            android:text="Usuario:"
+            android:textColor="@color/headings" />
 
         <EditText
             android:id="@+id/edtuss"
@@ -109,16 +109,16 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="2dp"
-            android:ems="10"
             android:hint="Usuario"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textSize="14dp" />
 
         <TextView
             android:layout_width="65dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/headings"
             android:layout_marginLeft="12dp"
-            android:text="Password" />
+            android:text="Password"
+            android:textColor="@color/headings" />
 
         <EditText
             android:id="@+id/edtpassUss"
@@ -127,9 +127,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="2dp"
-            android:ems="10"
             android:hint="Password"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textSize="14dp" />
 
         <LinearLayout
             android:layout_width="307dp"

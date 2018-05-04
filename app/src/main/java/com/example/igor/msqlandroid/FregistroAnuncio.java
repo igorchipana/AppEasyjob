@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,6 +34,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -55,8 +57,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -93,7 +98,6 @@ public class FregistroAnuncio extends Fragment {
     //LocationListener contexto = this;
     Button cargarubicacion,cargarubicacion1;
     private SupportMapFragment mapFragment;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -260,24 +264,35 @@ public class FregistroAnuncio extends Fragment {
             @Override
             public void onClick(View view) {
                 if(view==fecha){
-                    final Calendar c= Calendar.getInstance();
+                final Calendar c= Calendar.getInstance();
+
                     dia=c.get(Calendar.DAY_OF_MONTH);
                     mes=c.get(Calendar.MONTH);
                     ano=c.get(Calendar.YEAR);
 
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    final DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
                             date.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
+
                         }
                     }
                             ,dia,mes,ano);
+                   // datePickerDialog.getDatePicker().setMaxDate(new DatePicker(getContext()).getMaxDate());
+                    datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
+                    datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
+
                     datePickerDialog.show();
                 }
             }
         });
-        return vista;
 
+
+
+
+        return vista;
     }
 
 
