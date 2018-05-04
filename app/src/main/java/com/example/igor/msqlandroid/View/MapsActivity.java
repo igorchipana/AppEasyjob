@@ -175,22 +175,7 @@ public class MapsActivity extends android.support.v4.app.FragmentActivity {
 
     }
 
-
-
-
-
-    private void comprobacionesMapa() {
-        // Hacer una comprobación nula para confirmar que ya no hemos instanciado el mapa.
-        if (mMap == null) {
-            // Intenta obtener el mapa desde el SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
-            // Comprueba si hemos tenido éxito en la obtención del mapa.
-            if (mMap != null) {
-                configurarMapa();
-            }
-        }
-    }*/
+*/
        @Override
        public void onBackPressed() {
        if (getFragmentManager().getBackStackEntryCount() == 0) {
