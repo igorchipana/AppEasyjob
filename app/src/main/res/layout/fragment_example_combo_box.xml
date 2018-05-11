@@ -4,7 +4,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.igor.msqlandroid.View.ExampleComboBox">
 
+
+
     <!-- TODO: Update blank fragment layout -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,14 +33,28 @@
             android:id="@+id/idComboCategoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="180dp" />
+            android:spinnerMode="dropdown"
+            android:textColor="#ffffff"
+            android:textSize="19sp"
+            android:layout_marginBottom="8dp"
+            android:dropDownSelector="#ffffff"
+            android:layout_marginRight="13dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="13dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />
 
         <TextView
             android:id="@+id/idTxtResultado"
             android:layout_width="338dp"
+
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="3dp" />
+            android:layout_marginTop="8dp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/idRecycler"

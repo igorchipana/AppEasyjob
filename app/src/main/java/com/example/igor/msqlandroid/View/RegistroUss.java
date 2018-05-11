@@ -1,6 +1,7 @@
 package com.example.igor.msqlandroid.View;
 
 import android.app.ProgressDialog;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,6 +25,7 @@ import com.muddzdev.styleabletoastlibrary.StyleableToast;
 import org.json.JSONObject;
 
 public class RegistroUss extends AppCompatActivity implements Response.Listener<JSONObject>,Response.ErrorListener{
+    RelativeLayout rellay1, rellay2;
    EditText txtnom;
     EditText txtapellidos;
     EditText txttelefono;
@@ -34,11 +37,21 @@ public class RegistroUss extends AppCompatActivity implements Response.Listener<
     RequestQueue reques;
     JsonObjectRequest jsonObjectRequest;
     P_RegistroUss hola = new P_RegistroUss();
+    Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            rellay1.setVisibility(View.VISIBLE);
+            rellay2.setVisibility(View.VISIBLE);
+        }
+    };
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
+
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_registro_uss);
         txtnom=(EditText)findViewById(R.id.txtnombres);
         txtapellidos=(EditText)findViewById(R.id.txtapepa);
@@ -48,6 +61,11 @@ public class RegistroUss extends AppCompatActivity implements Response.Listener<
         txtpass=(EditText)findViewById(R.id.txtpass);
        registrar=(Button)findViewById(R.id.button);
       // P_RegistroUss hola = new P_RegistroUss();
+
+        rellay1 = (RelativeLayout) findViewById(R.id.rellay1);
+        rellay2 = (RelativeLayout) findViewById(R.id.rellay2);
+
+        handler.postDelayed(runnable, 1000);
 
         reques= Volley.newRequestQueue(this);
 

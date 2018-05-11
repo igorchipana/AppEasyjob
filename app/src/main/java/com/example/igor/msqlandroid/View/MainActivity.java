@@ -1,13 +1,16 @@
 package com.example.igor.msqlandroid.View;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity  implements Response.Listener<JSONObject>,Response.ErrorListener {
+    RelativeLayout rellay1, rellay2;
   Button reg;
   Button Login;
 
@@ -32,16 +36,31 @@ public class MainActivity extends AppCompatActivity  implements Response.Listene
         TextView gg;
     RequestQueue reques;
     JsonObjectRequest jsonObjectRequest;
+    ProgressDialog progreso;
+    Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            rellay1.setVisibility(View.VISIBLE);
+            rellay2.setVisibility(View.VISIBLE);
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_main);
         usuario=(EditText)findViewById(R.id.txtUsuario);
         contrasenia=(EditText)findViewById(R.id.txtpass);
         gg=(TextView)findViewById(R.id.hola);
+        rellay1 = (RelativeLayout) findViewById(R.id.rellay1);
+        rellay2 = (RelativeLayout) findViewById(R.id.rellay2);
+
+        handler.postDelayed(runnable, 2000);
 
         //reg=(Button)findViewById(R.id.hola);
         gg.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +82,13 @@ public class MainActivity extends AppCompatActivity  implements Response.Listene
         });
 
 
+
+
     }
     public void validarUsuario(){
+        progreso=new ProgressDialog(this);
+        progreso.setMessage("Cargando...");
+        progreso.show();
         String ip=getString(R.string.ip);
        reques= Volley.newRequestQueue(this);
         String url=ip+"/dbremota/WsLogin.php?USER="+usuario.getText().toString()+"&PASS="+contrasenia.getText().toString();
@@ -124,6 +148,7 @@ public class MainActivity extends AppCompatActivity  implements Response.Listene
                 i.putExtra("PASS", vPASS);
                 startActivity(i);
             }
+            progreso.hide();
             usuario.setText("");
             contrasenia.setText("");
             usuario.findFocus();
@@ -135,6 +160,7 @@ public class MainActivity extends AppCompatActivity  implements Response.Listene
 
     }
     private boolean validar() {
+        progreso.hide();
         boolean valid = true;
 
         String sUsser = usuario.getText().toString();

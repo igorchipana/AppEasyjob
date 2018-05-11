@@ -6,6 +6,7 @@
     <color name="white">#ffffff</color>
 
 
+
     <color name="address">#2F7092</color>
     <color name="followers">#0D5D98</color>
     <color name="headings">#3797CF</color>
@@ -16,6 +17,16 @@
     <color name="followersBg">#65DCE5</color>
     <color name="followingBg">#49BEFF</color>
     <color name="grey">#E5E5E5</color>
+
+    <color name="colorPrimarylog">#23A7D8</color>
+    <color name="colorPrimaryDarklog">#23A7D8</color>
+    <color name="colorAccentlog">#FFFFFF</color>
+    <color name="whitelog">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="gradStartlog">#19a3aa</color>
+    <color name="gradStoplog">#23A7D8</color>
+
+
 
 
 

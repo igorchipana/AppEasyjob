@@ -61,6 +61,7 @@ public class ExampleComboBox extends Fragment {
     ArrayList<String>lisCategoriasCombo;
     ArrayList<String>listaAnunciosFinal;
     String capturarIdCategoria;
+    ProgressDialog progreso;
 
 
 
@@ -71,6 +72,7 @@ public class ExampleComboBox extends Fragment {
         // Inflate the layout for this fragment
 
         View vista= inflater.inflate(com.example.igor.msqlandroid.R.layout.fragment_example_combo_box, container, false);
+
         comboCategorias=(Spinner)vista.findViewById(R.id.idComboCategoria);
         txtResultado=(TextView)vista.findViewById(R.id.idTxtResultado);
         recyclerAnuncios=(RecyclerView)vista.findViewById(R.id.idRecycler);
@@ -92,6 +94,9 @@ public class ExampleComboBox extends Fragment {
                 if (i!= 0) {
                     capturarIdCategoria= (listcategorias.get(i-1).getId_categoria().toString());
                   //  Toast.makeText(getContext(),capturarIdCategoria,Toast.LENGTH_SHORT).show();
+                    progreso=new ProgressDialog(getContext());
+                    progreso.setMessage("Cargando...");
+                    progreso.show();
                     String ip=getString(R.string.ip);
                     String urlServices2=ip+"/dbremota/WsPrueba.php";
                     loadAnuncioData(urlServices2+"?IDCATEGORIA="+capturarIdCategoria);
@@ -158,8 +163,9 @@ public class ExampleComboBox extends Fragment {
                                         recyclerAnuncios.setAdapter(adapter);
 
                                     }
+
                                 }
-                            //progreso.hide();
+                               progreso.hide();
                         }catch (JSONException e) {
                             e.printStackTrace();
                             StyleableToast.makeText(getContext(),"Error del json: "+e,R.style.exampletoast).show();
@@ -223,7 +229,7 @@ public class ExampleComboBox extends Fragment {
                     }
                     ArrayAdapter<CharSequence> adaptador= new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,lisCategoriasCombo);
                     comboCategorias.setAdapter(adaptador);
-                    //progreso.hide();
+
                 }catch (JSONException e) {
                     e.printStackTrace();
                     StyleableToast.makeText(getContext(),"Error del json: "+e,R.style.exampletoast).show();

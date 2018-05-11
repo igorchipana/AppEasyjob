@@ -42,7 +42,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class PerfilUss extends Fragment {
+public class PerfilUss extends Fragment{
     String valorid;
     JsonObjectRequest jsonObjectRequest;
     ArrayList<Persona> listaUsuarios;
@@ -57,15 +57,15 @@ public class PerfilUss extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vista= inflater.inflate(R.layout.pruebauss, container, false);
-      //  uUss=(TextView)vista.findViewById(R.id.utxuss);
-      //  uPass=(TextView)vista.findViewById(R.id.utxtpass);
+        //  uUss=(TextView)vista.findViewById(R.id.utxuss);
+        //  uPass=(TextView)vista.findViewById(R.id.utxtpass);
         ucorreo=(TextView)vista.findViewById(R.id.utxcorreo);
         utelefono=(TextView)vista.findViewById(R.id.utxttelefono);
         cargardatos1=(TextView)vista.findViewById(R.id.cargardatos);
-       prueba=(ImageView)vista.findViewById(R.id.imgedit);
+        prueba=(ImageView)vista.findViewById(R.id.imgedit);
 
 
-     //   edit=(Button)vista.findViewById(R.id.edtperfil);
+        //   edit=(Button)vista.findViewById(R.id.edtperfil);
 
         if(getArguments()!=null){
             valorid=getArguments().getString("idpersona");
@@ -101,7 +101,7 @@ public class PerfilUss extends Fragment {
         final Dialog dialog = new Dialog(context);
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         dialog.setContentView(R.layout.edit_uss_dialog);
-       // dialog.setTitle("Editar dato:");
+        // dialog.setTitle("Editar dato:");
         acpetar = (Button) dialog.findViewById(R.id.btnacep);
         cancelar = (Button) dialog.findViewById(R.id.btncancel);
         nombre=(EditText) dialog.findViewById(R.id.edtvalornom);
@@ -131,9 +131,11 @@ public class PerfilUss extends Fragment {
                 builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                            EditUss();
-                            dialog.cancel();
-                            listaPerfilUss();
+                        EditUss();
+                        dialog.cancel();
+                        progreso.hide();
+                        listaPerfilUss();
+
 
                     }
                 });
@@ -163,8 +165,11 @@ public class PerfilUss extends Fragment {
 
 
     private void listaPerfilUss() {
+        progreso=new ProgressDialog(getContext());
+        progreso.setMessage("Cargando...");
+        progreso.show();
         String ip = getContext().getString(R.string.ip);
-       String urlServices2 = ip + "/dbremota/Ws_listUsuarios.php?personaid="+ valorid.toString();
+        String urlServices2 = ip + "/dbremota/Ws_listUsuarios.php?personaid="+ valorid.toString();
         RequestQueue requestQueue2 = Volley.newRequestQueue(getContext());
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlServices2, null, new Response.Listener<JSONObject>() {
             @Override
@@ -189,14 +194,15 @@ public class PerfilUss extends Fragment {
                             oPersona.setPassword(jsonObject.optString("pass"));
                             listaUsuarios = new ArrayList<>();
                             listaUsuarios.add(oPersona);
-                           // uUss.setText(listaUsuarios.get(i).getUsuario().toString());
-                          //  uPass.setText(listaUsuarios.get(i).getPassword().toString());
+                            // uUss.setText(listaUsuarios.get(i).getUsuario().toString());
+                            //  uPass.setText(listaUsuarios.get(i).getPassword().toString());
                             ucorreo.setText(listaUsuarios.get(i).getCorreo().toString());
                             utelefono.setText(listaUsuarios.get(i).getTelefono().toString());
                             cargardatos1.setText(listaUsuarios.get(i).getNombres().toString()+" "+listaUsuarios.get(i).getApellidos());
 
                         }
                     }
+                    progreso.hide();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     StyleableToast.makeText(getContext(), "Error del json: " + e, R.style.exampletoast).show();

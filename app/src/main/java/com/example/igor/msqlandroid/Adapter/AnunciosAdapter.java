@@ -6,12 +6,21 @@ package com.example.igor.msqlandroid.Adapter;
 /**
  * Created by Igor on 7/04/2018.
  */
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,10 +40,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.igor.msqlandroid.Entidades.Anuncios;
 import com.example.igor.msqlandroid.R;
+import com.example.igor.msqlandroid.View.llamar;
 import com.muddzdev.styleabletoastlibrary.StyleableToast;
 import com.tooltip.Tooltip;
 
 import android.app.Dialog;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,6 +59,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.AnunciosHolder> {
+
     RecyclerView recyclerAnuncios;
     TextView vtxtdatos, vtxtTitulo, vtxtDes, vtxtTelcorreo,vtxtTelcorreo1, vtxtuss, vtxtidanuncio, textidanuncio1;
     TextView vcategoria, vnombres, vcorreo, telefono, vdescripcion, vtitulo, txtResultado;
@@ -58,6 +70,7 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
     Button acpetar;
     Button acpetar1;
     Button cancelar;
+    Button llamar;
     List<Anuncios> listaAnuncios;
     ArrayList<Anuncios> listaAnuncios1;
     ArrayList<Anuncios> listaAnuncios2;
@@ -65,6 +78,10 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
     String fechaHora;
     ProgressDialog progreso;
     Tooltip toltip, toltip1;
+    String valornumerotel;
+
+    private static final int REQUEST_CALL = 1;
+    private Button llamada;
 
     public AnunciosAdapter(List<Anuncios> listaAnuncios) {
         this.listaAnuncios = listaAnuncios;
@@ -119,16 +136,13 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
             vtxtDes.setMovementMethod (LinkMovementMethod.getInstance());
             vtxtTelcorreo = (TextView) itemView.findViewById(R.id.txttelcorreo);
             vtxtTelcorreo1=(TextView)itemView.findViewById(R.id.txttelcorreo1) ;
+
             btndialog = (Button) itemView.findViewById(R.id.btncomentar5);
             vtxtuss = (TextView) itemView.findViewById(R.id.idussss);
             vtxtidanuncio = (TextView) itemView.findViewById(R.id.idanuncio);
             btndialog1 = (Button) itemView.findViewById(R.id.btncomentar6);
-          /*  Tooltip tooltip=new Tooltip.Builder(btndialog)
-                    .setText("Comentar")
-                    .setTextColor(Color.WHITE)
-                    .setCornerRadius(8f)
-                    .setDismissOnClick(true)
-                    .show();*/
+            llamada = (Button)itemView.findViewById(R.id.btncomentarcall);
+
 
 
             btndialog.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +153,6 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
 
                     int pos = getAdapterPosition();
                     // check if item still exists
-
                     if (pos != RecyclerView.NO_POSITION) {
                        // Toast.makeText(context, "Recycle" + (listaAnuncios.get(pos).getIdAnuncio()), Toast.LENGTH_SHORT).show();
                       //  Toast.makeText(context, "Recycle" + (listaAnuncios.get(pos).getIdPersona()), Toast.LENGTH_SHORT).show();
@@ -147,8 +160,10 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
 
                     String id1;
                     String id2;
+
                     id1 = String.valueOf(listaAnuncios.get(pos).getIdAnuncio());
                     id2 = String.valueOf(listaAnuncios.get(pos).getIdPersona());
+
                     openDialog(context, id1, id2);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                     Date date = new Date();
@@ -161,7 +176,32 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
                     fechaHora = fecha + " " + horaactual;
                     Log.i("Hora3::", fechaHora);
                 }
+
+
             });
+
+
+            llamada.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getAdapterPosition();
+                    // check if item still exists
+                    if (pos != RecyclerView.NO_POSITION) {
+                       //  Toast.makeText(context, "Recycle" + (listaAnuncios.get(pos).getTelefono()), Toast.LENGTH_SHORT).show();
+                    }
+                    valornumerotel=(listaAnuncios.get(pos).getTelefono());
+                   String phoneNo = valornumerotel.toString();
+                    if(!TextUtils.isEmpty(phoneNo)) {
+                        String dial = "tel:" + phoneNo;
+                        context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+                    }else {
+                        Toast.makeText( context, "LLamando...", Toast.LENGTH_SHORT).show();
+                    }
+                    Toast.makeText(context, "Seleccionando telefono", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
             btndialog1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -171,6 +211,7 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
                     if (pos != RecyclerView.NO_POSITION) {
                       //  Toast.makeText(context, "Recycle" + (listaAnuncios.get(pos).getIdAnuncio()), Toast.LENGTH_SHORT).show();
                     }
+
                     String id3;
                     id3 = String.valueOf(listaAnuncios.get(pos).getIdAnuncio());
                     openDialogo(context, id3);
@@ -179,8 +220,10 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
         }
 
         public void openDialogo(Context context, String dato) {
-
+            progreso=new ProgressDialog(itemView.getContext());
+            progreso.setMessage("Cargando...");
             final Dialog dialog2 = new Dialog(context);
+
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             dialog2.setContentView(R.layout.lista_dialog);
             dialog2.setTitle("Comentarios de Anuncio:");
@@ -203,6 +246,7 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
             loadAnuncioData2();
 
 
+
             acpetar1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -210,6 +254,7 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
                 }
             });
             dialog2.show();
+            progreso.show();
             dialog2.setCanceledOnTouchOutside(true);
 
         }
@@ -322,6 +367,7 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
 
 
         private void loadAnuncioData1() {
+
             Log.i("Cargo:", "aqui");
             String ip = itemView.getContext().getString(R.string.ip);
             String urlServices2 = ip + "/dbremota/WsListComent.php?idanuncio=" + textidanuncio1.getText().toString();
@@ -361,9 +407,10 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
                                 vnombres.setText(listaAnuncios1.get(i).getNombres().toString() + "  " + listaAnuncios1.get(i).getApellidos().toString());
                                 telefono.setText(listaAnuncios1.get(i).getTelefono().toString());
                                 vdescripcion.setText(listaAnuncios1.get(i).getDescripcion().toString());
+
                             }
                         }
-                        //progreso.hide();
+                        progreso.hide();
                     } catch (JSONException e) {
                         e.printStackTrace();
                         StyleableToast.makeText(itemView.getContext(), "Error del json: " + e, R.style.exampletoast).show();
@@ -384,7 +431,9 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
         }
 
         private void loadAnuncioData2() {
-
+           // progreso=new ProgressDialog(context);
+           // progreso.setMessage("Cargando...");
+          //  progreso.show();
             String ip = itemView.getContext().getString(R.string.ip);
             String urlServices3 = ip + "/dbremota/WsListComentAdapter.php?idanuncio=" + textidanuncio1.getText().toString();
             RequestQueue requestQueue2 = Volley.newRequestQueue(itemView.getContext());
@@ -426,7 +475,7 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
                                 recyclerAnuncios.setAdapter(adapter);
                             }
                         }
-                       // progreso.hide();
+                      //  progreso.hide();
                     } catch (JSONException e) {
                         e.printStackTrace();
                         StyleableToast.makeText(itemView.getContext(), "Error del json: " + e, R.style.exampletoast).show();
@@ -448,7 +497,9 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
 
     }
 
-
-
+    @Override
+    public void onViewRecycled(AnunciosHolder holder) {
+        super.onViewRecycled(holder);
+    }
 }
 
