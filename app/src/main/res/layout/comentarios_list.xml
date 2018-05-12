@@ -16,7 +16,7 @@
         cardview:cardCornerRadius="5dp"
         app:cardElevation="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="4dp"
         android:backgroundTint="#e6f5f5"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="9dp"
