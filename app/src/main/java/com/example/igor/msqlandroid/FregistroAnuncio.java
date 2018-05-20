@@ -215,7 +215,7 @@ public class FregistroAnuncio extends Fragment {
                 progreso.setMessage("Cargando...");
                 progreso.show();
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(view.getContext());
-                builder.setMessage("¿Está seguro que quiere realizar este comentario?");
+                builder.setMessage("¿Está seguro que quiere realizar este registro?");
                 builder.setTitle("Mensaje de confirmación");
                 builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override

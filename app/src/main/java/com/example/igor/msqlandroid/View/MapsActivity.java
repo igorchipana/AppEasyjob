@@ -88,7 +88,7 @@ public class MapsActivity extends android.support.v4.app.FragmentActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION},
                     MY_PERMISSIONS_REQUEST);
         }
-    mMap =((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+        mMap =((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
 
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
         @Override

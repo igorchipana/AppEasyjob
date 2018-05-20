@@ -57,7 +57,10 @@
         <activity
             android:name=".View.MapsAnuncios"
             android:label="@string/title_activity_maps_anuncios" />
-        <activity android:name=".mundoload"></activity>
+        <activity android:name=".mundoload" />
+        <activity
+            android:name=".View.MapsActivityPerfil"
+            android:label="@string/title_activity_maps_perfil"></activity>
     </application>
 
 </manifest>

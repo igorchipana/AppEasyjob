@@ -294,6 +294,9 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
 
 
         private void listaPrueba(String valor) {
+            progreso=new ProgressDialog(itemView.getContext());
+            progreso.setMessage("Cargando...");
+            progreso.show();
             String ip = context.getString(R.string.ip);
             String urlServices2 = ip + "/dbremota/hola.php?idanuncio="+valor;
             RequestQueue requestQueue2 = Volley.newRequestQueue(itemView.getContext());
@@ -321,6 +324,7 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
 
                             }
                         }
+                        progreso.hide();
                     } catch (JSONException e) {
                         e.printStackTrace();
                         StyleableToast.makeText(itemView.getContext(), "Error del json: " + e, R.style.exampletoast).show();

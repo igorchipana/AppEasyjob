@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -42,16 +43,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class PerfilUss extends Fragment{
+public class PerfilUss extends Fragment {
     String valorid;
     JsonObjectRequest jsonObjectRequest;
     ArrayList<Persona> listaUsuarios;
-    TextView uUss,uPass,ucorreo,utelefono,cargardatos1;
-    EditText nombre,apellidos,telefono,correo,usuario,pass;
+    TextView uUss, uPass, ucorreo, utelefono, cargardatos1;
+    EditText nombre, apellidos, telefono, correo, usuario, pass;
     ToggleButton acccion;
-    Button cancelar,acpetar,edit;
+    Button cancelar, acpetar, edit;
     ImageView prueba;
     ProgressDialog progreso;
+      Button ubicacionuss;
+    ToggleButton llamarmapa;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,6 +66,10 @@ public class PerfilUss extends Fragment{
         utelefono=(TextView)vista.findViewById(R.id.utxttelefono);
         cargardatos1=(TextView)vista.findViewById(R.id.cargardatos);
         prueba=(ImageView)vista.findViewById(R.id.imgedit);
+
+                llamarmapa=(ToggleButton)vista.findViewById(R.id.chkState4);
+
+
 
 
         //   edit=(Button)vista.findViewById(R.id.edtperfil);
@@ -88,7 +95,15 @@ public class PerfilUss extends Fragment{
                 openDialogoedit(getContext());
             }
         });
-
+        llamarmapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent intentfff = new Intent(getContext(), MapsActivityPerfil.class);
+              //  startActivityForResult(intentfff, 12345);
+                Intent intent = new Intent(getActivity(), MapsActivityPerfil.class);
+                getActivity().startActivity(intent);
+            }
+        });
 
 
 

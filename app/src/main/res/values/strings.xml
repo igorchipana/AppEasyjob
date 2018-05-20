@@ -8,7 +8,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">Lista de Anuncios</string>
-    <string name="ip">http://172.17.6.11</string>
+    <string name="ip">http://192.168.1.33</string>
     <string name="ip2">https://universo211997.000webhostapp.com</string>
     <string name="titulo">Escriba su comentario:</string>
     <string name="titulo_seccion1">Anuncios de Empleos</string>
@@ -20,4 +20,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_maps_anuncios">Map</string>
+    <string name="title_activity_maps_perfil">Map</string>
 </resources>
