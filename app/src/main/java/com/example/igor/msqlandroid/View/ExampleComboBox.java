@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ import com.example.igor.msqlandroid.*;
 import com.example.igor.msqlandroid.Adapter.AnunciosAdapter;
 import com.example.igor.msqlandroid.Entidades.Categorias;
 import com.example.igor.msqlandroid.Entidades.Anuncios;
+import com.example.igor.msqlandroid.Entidades.calificacion;
 import com.example.igor.msqlandroid.R;
 import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
@@ -60,9 +62,11 @@ public class ExampleComboBox extends Fragment {
     ArrayList<Anuncios> listaAnuncios;
     ArrayList<String>lisCategoriasCombo;
     ArrayList<String>listaAnunciosFinal;
+    ArrayList<Anuncios> listacalificacion;
     String capturarIdCategoria;
     ProgressDialog progreso;
-
+    String valorid;
+    ArrayList<String> a,b;
 
 
 
@@ -73,6 +77,7 @@ public class ExampleComboBox extends Fragment {
 
         View vista= inflater.inflate(com.example.igor.msqlandroid.R.layout.fragment_example_combo_box, container, false);
 
+
         comboCategorias=(Spinner)vista.findViewById(R.id.idComboCategoria);
         txtResultado=(TextView)vista.findViewById(R.id.idTxtResultado);
         recyclerAnuncios=(RecyclerView)vista.findViewById(R.id.idRecycler);
@@ -81,11 +86,17 @@ public class ExampleComboBox extends Fragment {
         //reques= Volley.newRequestQueue(getContext());
         listcategorias=new ArrayList<>();
         listaAnuncios= new ArrayList<>();
+        listacalificacion = new ArrayList<>();
       //  btndialog = (Button)vista.findViewById(R.id.btncomentar);
         String ip=getString(R.string.ip);
         String urlServices1=ip+"/dbremota/WsJsonSelectCategorias.php";
         loadSpinnerData(urlServices1);
+
+
         //loadSpinnerData(urlServices2);
+
+
+
 
 
         comboCategorias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -98,8 +109,13 @@ public class ExampleComboBox extends Fragment {
                     progreso.setMessage("Cargando...");
                     progreso.show();
                     String ip=getString(R.string.ip);
-                    String urlServices2=ip+"/dbremota/WsPrueba.php";
-                    loadAnuncioData(urlServices2+"?IDCATEGORIA="+capturarIdCategoria);
+                    String urlServices2=ip+"/dbremota/WsPrueba2.php";
+                    loadAnuncioData1(urlServices2+"?IDCATEGORIA="+capturarIdCategoria+"&idPersona="+valorid);
+
+
+                   // String ip=getString(R.string.ip);
+                   // String urlServices2=ip+"/dbremota/WsPrueba.php";
+                   // loadAnuncioData(urlServices2+"?IDCATEGORIA="+capturarIdCategoria);
                 }else{
                    StyleableToast.makeText(getContext(),"Selecione alguna Categoría",R.style.exampletoast).show();
                 }
@@ -109,7 +125,16 @@ public class ExampleComboBox extends Fragment {
                 // DO Nothing here
             }
         });
+
+
+        if(getArguments()!=null){
+            valorid=getArguments().getString("idpersona");
+            Log.d(getClass().getName(), "value = " + valorid);
+        }else{
+            Log.d("msg","llegonulloooo");
+        }
         return vista;
+
 
 
     }
@@ -150,9 +175,14 @@ public class ExampleComboBox extends Fragment {
                                         oAnuncios.setCalificacion(jsonObject.optString("calificacion"));
                                         oAnuncios.setIdAnuncio(jsonObject.optInt("idAnuncio"));
                                         oAnuncios.setIdPersona(jsonObject.optInt("idPersona"));
+                                        oAnuncios.setIdPersonas(jsonObject.optInt("qq",Integer.parseInt(valorid)));
+
                                         listaAnuncios.add(oAnuncios);
+
                                     }
-                                    Log.i("prueba:",String.valueOf(listaAnuncios.get(0).getIdAnuncio()));
+
+                                  Log.i("pruebav:",String.valueOf(listaAnuncios.get(0).getIdPersonas()));
+                                  Log.d(getClass().getName(), "value = " + valorid);
 
                                     listaAnunciosFinal= new ArrayList<>();
                                     listaAnunciosFinal.add("Categorias:");
@@ -186,6 +216,87 @@ public class ExampleComboBox extends Fragment {
                 jsonObjectRequest.setRetryPolicy(policy);
                 requestQueue2.add(jsonObjectRequest);
     }
+
+    private void loadAnuncioData1 (String url) {
+        RequestQueue requestQueue2=Volley.newRequestQueue(getContext());
+        jsonObjectRequest =new JsonObjectRequest(Request.Method.GET, url,null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Anuncios oAnuncios=null;
+                JSONArray json=response.optJSONArray("RESULTADO");
+                Log.i("tamaño array:",String.valueOf(json.length()));
+                // if(jsonObject.getInt("success")==1){
+                txtResultado.setText("");
+                listaAnuncios.clear();
+                try {
+                    JSONObject jsonObjectTest = null;
+                    jsonObjectTest = json.getJSONObject(0);
+                    if (jsonObjectTest.optString("idAnuncio").trim().equals("-9999999999")) {
+                        // txtResultado.clearComposingText();
+                        recyclerAnuncios.removeAllViewsInLayout();
+                        txtResultado.setText("  No hay resultados para la categoria seleccionada :(");
+                        // recyclerAnuncios.setAdapter("No hay resultados para la categoria seleccionada");
+                    }else{
+
+                        for(int i=0;i<json.length();i++) {
+                            oAnuncios = new Anuncios();
+                            JSONObject jsonObject = null;
+                            jsonObject = json.getJSONObject(i);
+
+                            oAnuncios.setNombres (jsonObject.optString("NOMBRES"));
+                            oAnuncios.setApellidos(jsonObject.optString("APELLIDOS"));
+                            oAnuncios.setTelefono(jsonObject.optString("TELEFONO"));
+                            oAnuncios.setCorreo(jsonObject.optString("CORREO"));
+                            oAnuncios.setFecha(jsonObject.optString("fechA"));
+                            oAnuncios.setTitulo(jsonObject.optString("titulo"));
+                            oAnuncios.setDescripcion(jsonObject.optString("descripcion"));
+                            oAnuncios.setCalificacion(jsonObject.optString("calificacion"));
+                            oAnuncios.setIdAnuncio(jsonObject.optInt("idAnuncio"));
+                            oAnuncios.setIdPersona(jsonObject.optInt("idPersona"));
+                            oAnuncios.setValoridcali(jsonObject.optInt("idAnuncios"));
+                            oAnuncios.setIdPersonas(jsonObject.optInt("qq",Integer.parseInt(valorid)));
+                            listaAnuncios.add(oAnuncios);
+
+                        }
+
+                        Log.i("pruebav:",String.valueOf(listaAnuncios.get(0).getIdPersonas()));
+                        Log.d(getClass().getName(), "value = " + valorid);
+
+                        listaAnunciosFinal= new ArrayList<>();
+                        listaAnunciosFinal.add("Categorias:");
+
+                        for(int i=0;i<listaAnuncios.size();i++){
+                            Log.i("recorre?:",String.valueOf(listaAnuncios.get(0).getApellidos()));
+                            AnunciosAdapter adapter= new AnunciosAdapter(listaAnuncios);
+                            recyclerAnuncios.setAdapter(adapter);
+
+                        }
+
+                    }
+                    progreso.hide();
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                    StyleableToast.makeText(getContext(),"Error del json: "+e,R.style.exampletoast).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                StyleableToast.makeText(getContext(),"No se pudo conectar al JSON : "+error,R.style.exampletoast).show();
+
+            }
+        });
+
+
+        int socketTimeout = 30000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        jsonObjectRequest.setRetryPolicy(policy);
+        requestQueue2.add(jsonObjectRequest);
+    }
+
+
+
 
 
 

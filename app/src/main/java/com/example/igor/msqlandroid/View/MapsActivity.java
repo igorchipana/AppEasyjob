@@ -1,10 +1,12 @@
 package com.example.igor.msqlandroid.View;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -56,6 +58,8 @@ public class MapsActivity extends android.support.v4.app.FragmentActivity {
     String punto;
     private GoogleMap mMap;
     private TextView mTapTextView;
+    public final int MY_PERMISSIONS_REQUEST =500;
+    String latLng1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +67,7 @@ public class MapsActivity extends android.support.v4.app.FragmentActivity {
         setContentView(R.layout.activity_maps);
         enviarD = (Button) findViewById(R.id.enviardatos);
         final Context context = this;
-
+        LatLng ListaAnuncios = new LatLng(-12.0463731,-77.042754);
         enviarD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -80,12 +84,16 @@ public class MapsActivity extends android.support.v4.app.FragmentActivity {
         });
 
 
-
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    MY_PERMISSIONS_REQUEST);
+        }
     mMap =((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
 
             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
         @Override
         public void onMapClick (LatLng latLng){
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         if (latLng.latitude != 0.0 && latLng.longitude != 0.0) {
@@ -110,12 +118,13 @@ public class MapsActivity extends android.support.v4.app.FragmentActivity {
         mMap.clear();
         mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.addMarker(markerOptions);
+
+
     }
+
     });
-
-
-
-
+        mMap.setMyLocationEnabled(true);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ListaAnuncios,7));
 }
 
 

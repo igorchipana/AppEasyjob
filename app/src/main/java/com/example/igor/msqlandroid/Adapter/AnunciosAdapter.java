@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -20,12 +21,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -39,8 +42,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.igor.msqlandroid.Entidades.Anuncios;
+import com.example.igor.msqlandroid.Entidades.Categorias;
+import com.example.igor.msqlandroid.Entidades.Persona;
+import com.example.igor.msqlandroid.Entidades.calificacion;
 import com.example.igor.msqlandroid.R;
 import com.example.igor.msqlandroid.View.llamar;
+import com.like.OnAnimationEndListener;
+import com.like.OnLikeListener;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.muddzdev.styleabletoastlibrary.StyleableToast;
 import com.tooltip.Tooltip;
 
@@ -51,58 +60,88 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.Inet4Address;
+import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.IntStream;
+
+import com.like.LikeButton;
+
+
 
 public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.AnunciosHolder> {
+    int pruebav;
 
     RecyclerView recyclerAnuncios;
-    TextView vtxtdatos, vtxtTitulo, vtxtDes, vtxtTelcorreo,vtxtTelcorreo1, vtxtuss, vtxtidanuncio, textidanuncio1;
+    TextView vtxtdatos, vtxtTitulo, vtxtDes, vtxtTelcorreo, vtxtTelcorreo1, vtxtuss, vtxtidanuncio, textidanuncio1,idanuncios;
     TextView vcategoria, vnombres, vcorreo, telefono, vdescripcion, vtitulo, txtResultado;
-    TextView textidanuncio, textidpersona;
+    TextView textidanuncio, textidpersona,edtprueba,edtprueba1,edtprueba2;
     EditText vedtcomentario;
+    TextView domingo,domingo1;
     JsonObjectRequest jsonObjectRequest;
     Button btndialog, btndialog1;
     Button acpetar;
-    Button acpetar1;
-    Button cancelar;
+    Button acpetar1,cerrarmodal;
+    Button cancelar,b1;
     Button llamar;
     List<Anuncios> listaAnuncios;
+    List<calificacion> listaAnuncios5;
     ArrayList<Anuncios> listaAnuncios1;
     ArrayList<Anuncios> listaAnuncios2;
+    ArrayList<calificacion> listacalificacion;
     ArrayList<String> listaAnunciosFinal;
     String fechaHora;
     ProgressDialog progreso;
     Tooltip toltip, toltip1;
     String valornumerotel;
-
+    int contador = 0;
+    String a,b;
+    ArrayList<String> lisCategoriasCombo;
+    ArrayList<calificacion> listaprueba;
     private static final int REQUEST_CALL = 1;
-    private Button llamada;
+    private Button llamada,llama;
+    String xx;
+    String id1;
+    private static long LAST_CLICK_TIME = 0;
+    private final int mDoubleClickInterval = 400;
+    //LikeButton thumbButton;
+
+
+    LikeButton thumbButton;
+
 
     public AnunciosAdapter(List<Anuncios> listaAnuncios) {
         this.listaAnuncios = listaAnuncios;
+
     }
+
+
 
     @Override
 
     public AnunciosHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.anuncios_list, parent, false);
+        thumbButton = (LikeButton) vista.findViewById(R.id.thumb_button);
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         vista.setLayoutParams(layoutParams);
         listaAnuncios2 = new ArrayList<>();
-
+        listacalificacion = new ArrayList<>();
         return new AnunciosHolder(vista);
+
 
 
     }
 
+
     @Override
-    public void onBindViewHolder(AnunciosHolder holder, int position) {
+    public void onBindViewHolder(AnunciosHolder holder, int position){
         vtxtdatos.setText(listaAnuncios.get(position).getNombres().toString() + " " + listaAnuncios.get(position).getApellidos().toString());
         vtxtTitulo.setText(listaAnuncios.get(position).getTitulo().toString());
         vtxtDes.setText(listaAnuncios.get(position).getDescripcion().toString());
@@ -110,9 +149,19 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
         vtxtTelcorreo1.setText(listaAnuncios.get(position).getTelefono().toString());
         vtxtuss.setText(Integer.toString(listaAnuncios.get(position).getIdPersona()));
         vtxtidanuncio.setText(Integer.toString(listaAnuncios.get(position).getIdAnuncio()));
-        // vcorreo.setText(listaAnuncios1.get(position).getCorreo());
+       // idanuncios.setText(Integer.toString(listaAnuncios.get(position).getValoridcali()));
+       // edtprueba2.setText(xx);.
+
+
+
+
+        if ((listaAnuncios.get(position).getValoridcali()) != 0) {
+            thumbButton.setLiked(true);
+        }
 
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -121,13 +170,8 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
 
     static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
-
-    public class AnunciosHolder extends RecyclerView.ViewHolder {
-
-
+    public class AnunciosHolder extends RecyclerView.ViewHolder  implements OnLikeListener{
         final Context context = itemView.getContext();
-
-
         public AnunciosHolder(View itemView) {
             super(itemView);
             vtxtdatos = (TextView) itemView.findViewById(R.id.txtDatos);
@@ -136,34 +180,39 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
             vtxtDes.setMovementMethod (LinkMovementMethod.getInstance());
             vtxtTelcorreo = (TextView) itemView.findViewById(R.id.txttelcorreo);
             vtxtTelcorreo1=(TextView)itemView.findViewById(R.id.txttelcorreo1) ;
-
+            thumbButton.setOnLikeListener(this);
             btndialog = (Button) itemView.findViewById(R.id.btncomentar5);
             vtxtuss = (TextView) itemView.findViewById(R.id.idussss);
             vtxtidanuncio = (TextView) itemView.findViewById(R.id.idanuncio);
             btndialog1 = (Button) itemView.findViewById(R.id.btncomentar6);
             llamada = (Button)itemView.findViewById(R.id.btncomentarcall);
+            llama = (Button)itemView.findViewById(R.id.algo);
 
+
+
+                llama.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int pos = getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION) {
+                        }
+                        String valorid = String.valueOf(listaAnuncios.get(pos).getIdAnuncio());
+                         listaPrueba(valorid);
+                    }
+                });
 
 
             btndialog.setOnClickListener(new View.OnClickListener() {
                 int position;
-
                 @Override
                 public void onClick(View view) {
-
                     int pos = getAdapterPosition();
-                    // check if item still exists
                     if (pos != RecyclerView.NO_POSITION) {
-                       // Toast.makeText(context, "Recycle" + (listaAnuncios.get(pos).getIdAnuncio()), Toast.LENGTH_SHORT).show();
-                      //  Toast.makeText(context, "Recycle" + (listaAnuncios.get(pos).getIdPersona()), Toast.LENGTH_SHORT).show();
                     }
-
                     String id1;
                     String id2;
-
                     id1 = String.valueOf(listaAnuncios.get(pos).getIdAnuncio());
                     id2 = String.valueOf(listaAnuncios.get(pos).getIdPersona());
-
                     openDialog(context, id1, id2);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                     Date date = new Date();
@@ -176,29 +225,45 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
                     fechaHora = fecha + " " + horaactual;
                     Log.i("Hora3::", fechaHora);
                 }
-
-
             });
-
 
             llamada.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int pos = getAdapterPosition();
-                    // check if item still exists
                     if (pos != RecyclerView.NO_POSITION) {
-                       //  Toast.makeText(context, "Recycle" + (listaAnuncios.get(pos).getTelefono()), Toast.LENGTH_SHORT).show();
                     }
-                    valornumerotel=(listaAnuncios.get(pos).getTelefono());
-                   String phoneNo = valornumerotel.toString();
-                    if(!TextUtils.isEmpty(phoneNo)) {
-                        String dial = "tel:" + phoneNo;
-                        context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
-                    }else {
-                        Toast.makeText( context, "LLamando...", Toast.LENGTH_SHORT).show();
+                        valornumerotel = (listaAnuncios.get(pos).getTelefono());
+                        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(view.getContext());
+                        builder.setMessage("¿Estás seguro que desea llamar a este número?");
+                        builder.setTitle("Mensaje de confirmación");
+                        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                String phoneNo = valornumerotel.toString();
+                                if (!TextUtils.isEmpty(phoneNo)) {
+                                    String dial = "tel:" + phoneNo;
+                                    context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(dial)));
+                                } else {
+                                    Toast.makeText(context, "LLamando...", Toast.LENGTH_SHORT).show();
+                                }
+                                Toast.makeText(context, "Seleccionando telefono", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+
+                        android.support.v7.app.AlertDialog dialog = builder.create();
+                        dialog.show();
+
                     }
-                    Toast.makeText(context, "Seleccionando telefono", Toast.LENGTH_SHORT).show();
-                }
+
             });
 
 
@@ -206,10 +271,7 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
                 @Override
                 public void onClick(View view) {
                     int pos = getAdapterPosition();
-                    // check if item still exists
-
                     if (pos != RecyclerView.NO_POSITION) {
-                      //  Toast.makeText(context, "Recycle" + (listaAnuncios.get(pos).getIdAnuncio()), Toast.LENGTH_SHORT).show();
                     }
 
                     String id3;
@@ -217,6 +279,177 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
                     openDialogo(context, id3);
                 }
             });
+        }
+
+
+        @Override
+        public void liked(LikeButton likeButton) {
+            Regcali();
+        }
+
+        @Override
+        public void unLiked(LikeButton likeButton) {
+            deletelike();
+        }
+
+
+        private void listaPrueba(String valor) {
+            String ip = context.getString(R.string.ip);
+            String urlServices2 = ip + "/dbremota/hola.php?idanuncio="+valor;
+            RequestQueue requestQueue2 = Volley.newRequestQueue(itemView.getContext());
+            jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlServices2, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    calificacion oPersona = null;
+                    JSONArray json = response.optJSONArray("RESULTADO");
+                    try {
+                        JSONObject jsonObjectTest = null;
+                        jsonObjectTest = json.getJSONObject(0);
+                        if (jsonObjectTest.optString("idAnuncio").trim().equals("-9999999999")) {
+                        } else {
+                            for (int i = 0; i < json.length(); i++) {
+                                oPersona = new calificacion();
+                                JSONObject jsonObject = null;
+                                jsonObject = json.getJSONObject(i);
+                                oPersona.setValor(jsonObject.optInt("valor"));
+                                listaprueba = new ArrayList<>();
+                                listaprueba.add(oPersona);
+                                xx=String.valueOf(listaprueba.get(i).getValor());
+                                Log.d("datoxx=",xx);
+                                Log.d("datovalor=",String.valueOf(listaprueba.get(i).getValor()));
+                                openDialogcoment(context, xx);
+
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        StyleableToast.makeText(itemView.getContext(), "Error del json: " + e, R.style.exampletoast).show();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    StyleableToast.makeText(itemView.getContext(), "No se pudo conectar al JSON : " + error, R.style.exampletoast).show();
+                }
+            });
+            int socketTimeout = 10000;
+            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            jsonObjectRequest.setRetryPolicy(policy);
+            requestQueue2.add(jsonObjectRequest);
+
+        }
+
+
+
+
+        private void deletelike(){
+            int pos = getAdapterPosition();
+            if (pos != RecyclerView.NO_POSITION) {
+            }
+            pruebav= (listaAnuncios.get(pos).getIdPersonas());
+            String ip=itemView.getContext().getString(R.string.ip);
+            String urlService2=ip+"/dbremota/WsDeleteComent.php?idpersona="+ (listaAnuncios.get(pos).getIdPersonas())+
+                    "&idanuncios="+ (listaAnuncios.get(pos).getIdAnuncio());
+
+            urlService2=urlService2.replace(" ","%20");
+            // Log.i("Latitud1::",valorLat);
+
+            RequestQueue requestQueue3=Volley.newRequestQueue(itemView.getContext());
+            jsonObjectRequest =new JsonObjectRequest(Request.Method.GET, urlService2,null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Anuncios oAnuncios=null;
+
+                    try{
+                        JSONArray json=response.optJSONArray("resultado");
+                        JSONObject jsonObjectTest = null;
+                        jsonObjectTest = json.getJSONObject(0);
+                        if (jsonObjectTest.optString("valor").trim().equals("1")){
+                            StyleableToast.makeText(itemView.getContext(),"Dislike",R.style.exampletoast).show();
+                            // listaPerfilUss();
+                        }else{
+                            StyleableToast.makeText(itemView.getContext(),"Error al modificar",R.style.exampletoast).show();
+                        }
+                    }catch (JSONException e) {
+                        e.printStackTrace();
+                        StyleableToast.makeText(itemView.getContext(),"Error del json: "+e,R.style.exampletoast).show();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    StyleableToast.makeText(itemView.getContext(),"No se pudo conectar al JSON : "+error,R.style.exampletoast).show();
+                }
+            });
+            int socketTimeout = 30000;
+            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            jsonObjectRequest.setRetryPolicy(policy);
+            requestQueue3.add(jsonObjectRequest);
+
+        }
+
+
+        private void Regcali() {
+            int pos = getAdapterPosition();
+            if (pos != RecyclerView.NO_POSITION) {
+            }
+            int valorLike=1;
+            //   Toast.makeText(context, "Recycle" +valorLike, Toast.LENGTH_SHORT).show();
+            String ip = itemView.getContext().getString(R.string.ip);
+            String urlService = ip + "/dbremota/WsRegistroCalificacion.php?idanuncio=" + (listaAnuncios.get(pos).getIdAnuncio()) +
+                    "&idpersona=" + (listaAnuncios.get(pos).getIdPersonas()) +
+                    "&calificacion=" + valorLike;
+
+            urlService = urlService.replace(" ", "%20");
+            RequestQueue requestQueue3 = Volley.newRequestQueue(itemView.getContext());
+            jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlService, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        JSONArray json = response.optJSONArray("resultado");
+                        JSONObject jsonObjectTest = null;
+                        jsonObjectTest = json.getJSONObject(0);
+                        if (jsonObjectTest.optString("valor").trim().equals("1")) {
+                            StyleableToast.makeText(itemView.getContext(), "Se registró like", R.style.exito_toast).show();
+                        } else {
+                            StyleableToast.makeText(itemView.getContext(), "Error al registrar", R.style.exampletoast).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        StyleableToast.makeText(itemView.getContext(), "Error del json: " + e, R.style.exampletoast).show();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    StyleableToast.makeText(itemView.getContext(), "No se pudo conectar al JSON : " + error, R.style.exampletoast).show();
+                }
+            });
+            int socketTimeout = 30000;
+            RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            jsonObjectRequest.setRetryPolicy(policy);
+            requestQueue3.add(jsonObjectRequest);
+        }
+
+        private void openDialogcoment(Context context, String xx1) {
+            final Dialog dialogc = new Dialog(context);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.create();
+            dialogc.setContentView(R.layout.comentario_modal);
+            edtprueba1 = (TextView) dialogc.findViewById(R.id.porfavor);
+            edtprueba1.setText(xx1);
+            cerrarmodal=(Button)dialogc.findViewById(R.id.idcerrarmodal);
+            cerrarmodal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogc.cancel();
+                }
+            });
+
+            dialogc.show();
+            dialogc.setCanceledOnTouchOutside(true);
+
         }
 
         public void openDialogo(Context context, String dato) {
@@ -313,9 +546,12 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
         }
 
         private void RegComentario() {
+            int pos = getAdapterPosition();
+            if (pos != RecyclerView.NO_POSITION) {
+            }
             String ip = itemView.getContext().getString(R.string.ip);
             String urlService = ip + "/dbremota/WsRegistroComentario.php?idanuncio=" + textidanuncio.getText().toString() +
-                    "&idpersona=" + textidpersona.getText().toString() +
+                    "&idpersona=" +(listaAnuncios.get(pos).getIdPersonas()) +
                     "&comentario=" + vedtcomentario.getText().toString() +
                     "&fecha=" + fechaHora.toString();
             urlService = urlService.replace(" ", "%20");
@@ -408,6 +644,7 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
                                 telefono.setText(listaAnuncios1.get(i).getTelefono().toString());
                                 vdescripcion.setText(listaAnuncios1.get(i).getDescripcion().toString());
 
+
                             }
                         }
                         progreso.hide();
@@ -493,6 +730,7 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
             jsonObjectRequest.setRetryPolicy(policy);
             requestQueue2.add(jsonObjectRequest);
         }
+
 
 
     }

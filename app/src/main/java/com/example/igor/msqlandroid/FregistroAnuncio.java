@@ -22,6 +22,7 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.igor.msqlandroid.Entidades.Anuncios;
 import com.example.igor.msqlandroid.Entidades.Categorias;
+import com.example.igor.msqlandroid.View.ExampleComboBox;
 import com.example.igor.msqlandroid.View.MapsActivity;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -413,6 +415,7 @@ public class FregistroAnuncio extends Fragment {
 
 
     private void RegAnuncio () {
+
         //if (!validar()) return;
         Log.i("Latitud1::",capturarIdCategoria);
         Log.i("Latitud1::",valorid);
@@ -450,6 +453,8 @@ public class FregistroAnuncio extends Fragment {
                     date.setText("");
                     titulo.setText("");
                     descripcion.setText("");
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.contenedor,new ExampleComboBox()).commit();
 
                 }else{
                     StyleableToast.makeText(getContext(),"Error al registrar",R.style.exampletoast).show();

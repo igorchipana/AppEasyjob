@@ -8,8 +8,8 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">Lista de Anuncios</string>
-    <string name="ip2">http://10.40.93.240</string>
-    <string name="ip">https://universo211997.000webhostapp.com</string>
+    <string name="ip">http://172.17.6.11</string>
+    <string name="ip2">https://universo211997.000webhostapp.com</string>
     <string name="titulo">Escriba su comentario:</string>
     <string name="titulo_seccion1">Anuncios de Empleos</string>
     <string name="titulo_seccion2">Registre un Anuncio de Empleo</string>

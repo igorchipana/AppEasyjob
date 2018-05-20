@@ -24,37 +24,31 @@
             android:textStyle="bold" />
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Seleccione:" />
-
         <Spinner
             android:id="@+id/idComboCategoria"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:spinnerMode="dropdown"
-            android:textColor="#ffffff"
-            android:textSize="19sp"
-            android:layout_marginBottom="8dp"
-            android:dropDownSelector="#ffffff"
-            android:layout_marginRight="13dp"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="13dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            />
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:dropDownSelector="#ffffff"
+            android:gravity="center_vertical"
+            android:spinnerMode="dropdown"
+            android:textColor="#ffffff"
+            android:textSize="19sp" />
 
         <TextView
             android:id="@+id/idTxtResultado"
             android:layout_width="338dp"
 
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="4dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/idRecycler"

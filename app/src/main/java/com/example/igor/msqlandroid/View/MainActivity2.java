@@ -52,7 +52,16 @@ public class MainActivity2 extends AppCompatActivity
         }
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         //fragmentManager.beginTransaction().replace(R.id.contenedor,new ListaAnuncios()).commit();
-        fragmentManager.beginTransaction().replace(R.id.contenedor,new ExampleComboBox()).commit();
+
+
+        ExampleComboBox vistafragment1= new ExampleComboBox();
+        Bundle args1 = new Bundle();
+        args1.putString("idpersona", vPERSONAID);
+        vistafragment1.setArguments(args1);
+        FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
+        fragTransaction.replace(R.id.contenedor,vistafragment1,null);
+        fragTransaction.commit();
+      //  fragmentManager.beginTransaction().replace(R.id.contenedor,new ExampleComboBox()).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,17 +91,27 @@ public class MainActivity2 extends AppCompatActivity
         vistafragment.setArguments(args);
 
 
-        PerfilUss vistafragment1= new PerfilUss();
+       PerfilUss vistafragment2= new PerfilUss();
+        Bundle args2 = new Bundle();
+        args2.putString("idpersona", vPERSONAID);
+        vistafragment2.setArguments(args2);
+
+        ExampleComboBox vistafragment1= new ExampleComboBox();
         Bundle args1 = new Bundle();
         args1.putString("idpersona", vPERSONAID);
         vistafragment1.setArguments(args1);
+
+
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (id == R.id.nav_listaanuncios) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor,new ExampleComboBox()).commit();
+           // fragmentManager.beginTransaction().replace(R.id.contenedor,new ExampleComboBox()).commit();
+            FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
+            fragTransaction.replace(R.id.contenedor,vistafragment1,null);
+            fragTransaction.commit();
         } else if (id == R.id.nav_anuncios) {
             FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
             fragTransaction.replace(R.id.contenedor, vistafragment, null);
@@ -111,7 +130,7 @@ public class MainActivity2 extends AppCompatActivity
 
         }else if (id == R.id.nav_perfil) {
             FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
-            fragTransaction.replace(R.id.contenedor,vistafragment1,null);
+            fragTransaction.replace(R.id.contenedor,vistafragment2,null);
             fragTransaction.commit();
 
         }  else if (id == R.id.nav_share1) {
