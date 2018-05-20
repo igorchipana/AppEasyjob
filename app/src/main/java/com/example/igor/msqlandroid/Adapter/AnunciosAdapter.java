@@ -526,6 +526,7 @@ public class AnunciosAdapter   extends RecyclerView.Adapter<AnunciosAdapter.Anun
                     progreso.show();
                     android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(view.getContext());
                     builder.setMessage("¿Está seguro que quiere realizar este comentario?");
+
                     builder.setTitle("Mensaje de confirmación");
                     builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                         @Override
