@@ -96,6 +96,11 @@ public class MainActivity2 extends AppCompatActivity
         args2.putString("idpersona", vPERSONAID);
         vistafragment2.setArguments(args2);
 
+        Mis_AnunciosFrag vistafragment3= new Mis_AnunciosFrag();
+        Bundle args3 = new Bundle();
+        args3.putString("idpersona", vPERSONAID);
+        vistafragment3.setArguments(args3);
+
         ExampleComboBox vistafragment1= new ExampleComboBox();
         Bundle args1 = new Bundle();
         args1.putString("idpersona", vPERSONAID);
@@ -134,6 +139,10 @@ public class MainActivity2 extends AppCompatActivity
             fragTransaction.commit();
 
         }  else if (id == R.id.nav_share1) {
+            FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
+            fragTransaction.replace(R.id.contenedor,vistafragment3,null);
+            fragTransaction.commit();
+
 
         } else if (id == R.id.nav_salir) {
 

@@ -1,6 +1,7 @@
 package com.example.igor.msqlandroid.View;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -79,14 +80,6 @@ public class RegistroUss extends AppCompatActivity implements Response.Listener<
     }
 
 
-
-
-
-
-
-
-
-
    private void CargarWebServices() {
        if (!validar()) return;
         progreso=new ProgressDialog(this);
@@ -121,6 +114,8 @@ public class RegistroUss extends AppCompatActivity implements Response.Listener<
         txtcorreo.setText("");
         txtuss.setText("");
         txtpass.setText("");
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
     }
 
     private boolean validar() {
